@@ -22,7 +22,7 @@ class _RecipeDetailState extends State<RecipeDetail> {
   void initState() {
     super.initState();
     baseYield = widget.recipe.appyield;
-    selectedPersons = baseYield.toInt();
+    selectedPersons = baseYield.toInt().clamp(1,50);
   }
 
   double scaleValue(double original) {
@@ -65,10 +65,10 @@ class _RecipeDetailState extends State<RecipeDetail> {
                 ),
                 DropdownButton<int>(
                   value: selectedPersons,
-                  items: List.generate(12, (index) => index + 1)
-                      .map((value) => DropdownMenuItem(
+                  items: List.generate(50, (index) => index + 1)
+                      .map((value) => DropdownMenuItem<int>(
                     value: value,
-                    child: Text("$value"),
+                    child: Text(value.toString()),
                   ))
                       .toList(),
                   onChanged: (value) {
