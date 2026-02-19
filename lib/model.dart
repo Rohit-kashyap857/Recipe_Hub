@@ -1,10 +1,33 @@
 // lib/model.dart
+
+class IngredientModel {
+  final double quantity;
+  final String measure;
+  final String food;
+
+  IngredientModel({
+    required this.quantity,
+    required this.measure,
+    required this.food,
+  });
+
+  factory IngredientModel.fromMap(Map<String, dynamic> map) {
+    return IngredientModel(
+      quantity: (map['quantity'] as num?)?.toDouble() ?? 0.0,
+      measure: map['measure'] ?? '',
+      food: map['food'] ?? '',
+    );
+  }
+}
+
 class RecipeModel {
   final String applabel;
   final String appimageurl;
   final String appurl;
   final double appcalories;
-  final List<String> ingredients;
+  final double appyield;
+  final List<IngredientModel> ingredients;
+
   final List<String> dietLabels;
   final List<String> healthLabels;
   final List<String> mealType;
@@ -16,6 +39,7 @@ class RecipeModel {
     required this.appimageurl,
     required this.appurl,
     required this.appcalories,
+    required this.appyield,
     required this.ingredients,
     required this.dietLabels,
     required this.healthLabels,
@@ -29,28 +53,20 @@ class RecipeModel {
       applabel: map['label'] ?? '',
       appimageurl: map['image'] ?? '',
       appurl: map['url'] ?? '',
-      appcalories: (map['calories'] != null)
-          ? (map['calories'] as num).toDouble()
-          : 0.0,
-      ingredients: map['ingredientLines'] != null
-          ? List<String>.from(map['ingredientLines'])
+      appcalories: (map['calories'] as num?)?.toDouble() ?? 0.0,
+      appyield: (map['yield'] as num?)?.toDouble() ?? 1.0,
+
+      ingredients: map['ingredients'] != null
+          ? List<Map<String, dynamic>>.from(map['ingredients'])
+          .map((e) => IngredientModel.fromMap(e))
+          .toList()
           : [],
-      dietLabels: map['dietLabels'] != null
-          ? List<String>.from(map['dietLabels'])
-          : [],
-      healthLabels: map['healthLabels'] != null
-          ? List<String>.from(map['healthLabels'])
-          : [],
-      mealType: map['mealType'] != null
-          ? List<String>.from(map['mealType'])
-          : [],
-      dishType: map['dishType'] != null
-          ? List<String>.from(map['dishType'])
-          : [],
-      cuisineType: map['cuisineType'] != null
-          ? List<String>.from(map['cuisineType'])
-          : [],
+
+      dietLabels: List<String>.from(map['dietLabels'] ?? []),
+      healthLabels: List<String>.from(map['healthLabels'] ?? []),
+      mealType: List<String>.from(map['mealType'] ?? []),
+      dishType: List<String>.from(map['dishType'] ?? []),
+      cuisineType: List<String>.from(map['cuisineType'] ?? []),
     );
   }
 }
-
