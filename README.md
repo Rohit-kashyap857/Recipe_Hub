@@ -8,7 +8,7 @@ Users can search recipes, filter by category, and view detailed ingredients & nu
 ## 📸 Screenshots
 
 <p align="center">
-  <img src="assets/icon/Screenshot_2026-02-20-19-31-30-586_com.example.recipe_app1.jpg" width="250">
+  <img src="assets/icon/Screenshot_2026-02-20-19-30-44-581_com.example.recipe_app1.jpg" width="250">
   <img src="assets/screenshots/home.png" width="250">
   <img src="assets/screenshots/details.png" width="250">
 </p>
